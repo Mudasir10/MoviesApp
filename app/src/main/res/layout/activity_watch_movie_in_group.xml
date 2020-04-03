@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activities.WatchMovieInGroup">
+
+    <include
+        android:id="@+id/app_bar_watch_movie_inGroup"
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:layout_below="@+id/app_bar_watch_movie_inGroup"
+        android:id="@+id/youtube_player_group"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+
+
+    </com.google.android.youtube.player.YouTubePlayerView>
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFF"
+        android:id="@+id/tv_heading_comments"
+        android:layout_below="@+id/youtube_player_group"
+        android:text="Comments :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:clickable="true"
+        android:layout_above="@+id/rv_messages"
+        android:gravity="right"
+        android:id="@+id/tv_Share_Code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/youtube_player_group"
+        android:layout_alignParentEnd="true"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:drawableStart="@drawable/ic_share"
+        android:text="Share Code"
+        android:textColor="#FFF" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout4"
+        android:layout_below="@+id/tv_heading_comments"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/layout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:textColorHint="#FFF"
+            android:hint="type a comment"
+            android:textColor="#FFF"
+            android:id="@+id/et_message"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_marginRight="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/btnSendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Send"
+            android:drawableRight="@drawable/ic_send"
+            android:clickable="true"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>

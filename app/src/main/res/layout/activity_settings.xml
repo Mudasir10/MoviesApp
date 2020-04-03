@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include
+        android:id="@+id/app_bar_settings"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+         layout="@layout/app_bar_layout"/>
+
+
+    <LinearLayout
+
+        android:layout_below="@+id/app_bar_settings"
+        android:id="@+id/linearBtn"
+        android:layout_width="match_parent"
+        android:layout_margin="14dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:animateLayoutChanges="true">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImage"
+            android:src="@drawable/man"
+            android:layout_width="80dp"
+            android:layout_height="70dp" />
+
+
+        <LinearLayout
+            android:id="@+id/linear2Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mudasir Hussain"
+                android:textSize="19sp"
+                android:textStyle="normal"
+                android:textColor="#FFF"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="programmer785@gmail.com"
+                android:textSize="19sp"
+                android:textStyle="normal"
+                android:textColor="#FFF"
+                android:layout_marginStart="10dp"
+                />
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/lineView"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#FFF"
+        android:layout_below="@id/linearBtn"/>
+
+
+    <ListView
+        android:id="@+id/settingListView"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineView"
+        tools:listitem="@layout/settings_item"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp" />
+
+
+    <View
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/l"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#FFF"
+        android:layout_below="@id/settingListView"/>
+
+
+        <TextView
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:drawableStart="@drawable/share"
+            android:layout_margin="30dp"
+            android:textColor="#FFF"
+            android:text="Invite a Friend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/settingListView"
+            />
+
+
+</RelativeLayout>

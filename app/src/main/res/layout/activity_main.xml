@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activities.MainActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/app_name">
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/slide_pager"
+                android:layout_width="match_parent"
+                android:layout_height="275dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center" />
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            app:tabBackground="@drawable/indicator_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- Scrolling Content -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:measureAllChildren="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:ignore="NotSibling">
+
+            <LinearLayout
+                android:id="@+id/layoutContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_love_movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Best Love Movies"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_movies_love"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fastScrollEnabled="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    android:verticalScrollbarPosition="right" />
+
+                <Button
+                    android:textColor="#FFF"
+                   android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/showAllLoveMovies"
+                    android:text="Show All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_action_movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Best Action Movies"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_movies_Action"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fastScrollEnabled="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    android:verticalScrollbarPosition="right" />
+
+                <Button
+                    android:textColor="#FFF"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/showAllActionMovies"
+                    android:text="Show All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_adventure_movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Best Adventure Movies"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/rv_moviesAdventure"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fastScrollEnabled="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    android:verticalScrollbarPosition="right" />
+
+
+                <Button
+                    android:textColor="#FFF"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/showAllAdventureMovies"
+                    android:text="Show All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_comedy_movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Best Comedy Movies"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_movies_comedy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fastScrollEnabled="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    android:verticalScrollbarPosition="right" />
+
+                <Button
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textColor="#FFF"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/showAllComedyMovies"
+                    android:text="Show All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ProgressBar
+                    android:layout_gravity="center"
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_gravity="bottom"
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:menu="@menu/bottom_nav" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
