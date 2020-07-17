@@ -14,8 +14,6 @@ public class Group {
     private String Status;
     private String Admin;
 
-
-
     public Group() {
 
     }

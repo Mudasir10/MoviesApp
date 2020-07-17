@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -26,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +49,9 @@ import static com.mudasir.moviesapp.R.color.colorAccent;
 
 public class MoviesDetailsActivity extends AppCompatActivity {
 
+
+    private static final String TAG = "MoviesDetailsActivity";
+
     private ImageView MovieThumbnailImg,MovieCoverImg ,ImagebtnFav;
     private TextView tv_title,tv_description;
     private FloatingActionButton play_fab;
@@ -63,8 +68,13 @@ public class MoviesDetailsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private String uid="";
-    private DatabaseReference mDataBase;
+    private String key="";
 
+    private DatabaseReference mDataBase;
+    private String category;
+
+
+    //String Favkey;
 
     private Boolean showingFirst=true;
 
@@ -77,12 +87,11 @@ public class MoviesDetailsActivity extends AppCompatActivity {
         mToolbar=findViewById(R.id.app_bar_movie_details);
         setSupportActionBar(mToolbar);
 
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_left);
-        mToolbar.setNavigationOnClickListener(v -> finish());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         // ini views
         iniViews();
-
 
 
 
@@ -108,6 +117,12 @@ public class MoviesDetailsActivity extends AppCompatActivity {
         String imageResourceId = getIntent().getExtras().getString("imgURL");
         String imagecover = getIntent().getExtras().getString("imgCover");
         final String video_url = getIntent().getExtras().getString("video_url");
+
+
+      /*  if (!getIntent().getExtras().get("key").equals(null)){
+            Favkey=getIntent().getExtras().getString("key");
+        }
+*/
 
 
         mDatabaseFav.orderByChild("title").equalTo(movieTitle).addValueEventListener(new ValueEventListener() {
@@ -155,25 +170,20 @@ public class MoviesDetailsActivity extends AppCompatActivity {
 
             if (showingFirst)
             {
+
                 String key=  mDatabaseFav.push().getKey();
-                Movies movies=new Movies();
-
-                movies.setTitle(movieTitle);
-                movies.setDescription(movieDes);
-                movies.setKey(key);
-                movies.setStreamingLink(video_url);
-                movies.setThumbnail(imageResourceId);
-
-
+                Movies movies=new Movies(movieTitle,movieDes,imageResourceId,category,video_url,key);
                 Map<String,Object> postvalues=movies.MoviestoMap();
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put (key, postvalues);
 
                 mDatabaseFav.updateChildren(childUpdates).addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
+
                         showingFirst=false;
                         ImagebtnFav.setImageResource(R.drawable.clicked_fav);
                         Toast.makeText(MoviesDetailsActivity.this, "Added to Fav List", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
@@ -181,7 +191,20 @@ public class MoviesDetailsActivity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this, "Already Saved Into Favourite List", Toast.LENGTH_SHORT).show();
+                mDatabaseFav.child(key).removeValue().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+
+                        showingFirst=true;
+                        ImagebtnFav.setImageResource(R.drawable.fav);
+                        Toast.makeText(MoviesDetailsActivity.this, movieTitle+" Removed From Favourite", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+
+                        Toast.makeText(MoviesDetailsActivity.this, "Some Thing Went Wrong!!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
 
             }
 
@@ -195,7 +218,7 @@ public class MoviesDetailsActivity extends AppCompatActivity {
             Intent SendToPlayerActivity=new Intent(MoviesDetailsActivity.this,PlayerActivity.class);
             SendToPlayerActivity.putExtra("video_url",video_url);
             SendToPlayerActivity.putExtra("title",movieTitle);
-            SendToPlayerActivity.putExtra("des",movieDes);
+            SendToPlayerActivity.putExtra("description",movieDes);
 
             startActivity(SendToPlayerActivity);
 
@@ -279,6 +302,14 @@ public class MoviesDetailsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        key=getIntent().getExtras().getString("key");
+        category=getIntent().getExtras().getString("category");
+
+
+    }
 
     String GenerateRandomNumber(int charLength) {
         return String.valueOf(charLength < 1 ? 0 : new Random()

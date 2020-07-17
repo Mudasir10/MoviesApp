@@ -11,6 +11,7 @@ public class messages {
     private String message;
 
     public messages() {
+
     }
 
     public messages(String username, String message) {

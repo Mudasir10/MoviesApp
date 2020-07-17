@@ -1,5 +1,4 @@
 package com.mudasir.moviesapp.activities;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -34,18 +33,25 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+
     private EditText etUserName;
+
     private EditText etEmail;
     private EditText etCreatePass;
     private EditText etConfirmPass;
+
     private Button btnRegister;
     private Button btnAlreadyHaveAnAccount;
 
     private Toolbar mToolBar;
-    private ProgressDialog mProgress;
-    private DatabaseReference mDatabaseRef;
-    private FirebaseUser mCurrentuser;
 
+    private ProgressDialog mProgress;
+
+    private DatabaseReference mDatabaseRef;
+
+
+
+    private FirebaseUser mCurrentuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void bindingView() {
+
         etUserName=findViewById(R.id.reg_user_name);
         etEmail=findViewById(R.id.reg_email);
         etCreatePass=findViewById(R.id.reg_create_pass);
@@ -81,10 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(v -> {
 
 
-         String user_name= etUserName.getText().toString();
-            String email= etEmail.getText().toString();
-            String Createpassword= etCreatePass.getText().toString();
-            String ConfirmPassword= etConfirmPass.getText().toString();
+         String user_name = etUserName.getText().toString();
+            String email =  etEmail.getText().toString();
+            String Createpassword = etCreatePass.getText().toString();
+            String ConfirmPassword = etConfirmPass.getText().toString();
 
             if (!user_name.isEmpty() &&  !email.isEmpty() && !Createpassword.isEmpty() && !ConfirmPassword.isEmpty()){
 
@@ -130,52 +137,35 @@ public class RegisterActivity extends AppCompatActivity {
     private void signUp(final String userName, final String email, String password){
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(this, task -> {
 
-                        if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
 
-                            mCurrentuser = mAuth.getCurrentUser();
-                            mCurrentuser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                                public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                    if (task.isSuccessful()) {
+                        mCurrentuser = mAuth.getCurrentUser();
+                        String uid = mCurrentuser.getUid();
+                        mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
-                                        String idToken = task.getResult().getToken();
+                        Map<String, Object> userUpdates = new HashMap<>();
+                        userUpdates.put("UserName", userName);
+                        userUpdates.put("Email", email);
+                        userUpdates.put("Id", uid);
+                        userUpdates.put("image", "default");
+                        mDatabaseRef.updateChildren(userUpdates);
 
-                                        mCurrentuser=mAuth.getCurrentUser();
-                                        String uid=mCurrentuser.getUid();
-                                        mDatabaseRef= FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                        mProgress.dismiss();
 
-                                        Map<String, Object> userUpdates = new HashMap<>();
-                                        userUpdates.put("UserName",userName );
-                                        userUpdates.put("Email", email);
-                                        userUpdates.put("Id", uid);
-                                        userUpdates.put("token_id",idToken);
-                                        userUpdates.put("image","default");
-                                        mDatabaseRef.updateChildren(userUpdates);
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
 
-                                        mProgress.dismiss();
-                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                        startActivity(intent);
-
-                                        // ...
-                                    }
-                                }
-                            });
-
-
-
-                        }
-                        else{
-                            mProgress.hide();
-                            Toast.makeText(RegisterActivity.this, "Registration failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
+                        // ...
                     }
+                    else{
+                        mProgress.hide();
+                        Toast.makeText(RegisterActivity.this, "Registration failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
                 });
 
 

@@ -109,8 +109,6 @@ public class GroupsActivity extends AppCompatActivity  implements GroupItemClick
             }
         });
 
-
-
     }
 
 
@@ -133,39 +131,15 @@ public class GroupsActivity extends AppCompatActivity  implements GroupItemClick
 
                         String code=group.getGroupCode();
 
-                        mDatabaseRef.child(code).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-
-                                mDatabase.child(code).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-
-
-                                        Toast.makeText(GroupsActivity.this, "Done", Toast.LENGTH_SHORT).show();
-
-
-                                    }
-                                });
-
-                            }
-                        });
+                        mDatabaseRef.child(code).removeValue().addOnCompleteListener(task ->
+                                mDatabase.child(code).removeValue().addOnCompleteListener(task1 ->
+                                        Toast.makeText(GroupsActivity.this, "Done", Toast.LENGTH_SHORT).show()));
 
 
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.cancel();
-
-                    }
-                });
+                }).setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
         alert.create();
         alert.show();
-
-
 
     }
 
@@ -179,17 +153,13 @@ public class GroupsActivity extends AppCompatActivity  implements GroupItemClick
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        new Handler().postDelayed(() -> {
+            Intent sendTOWatchMoviesInGroupActivity=new Intent(GroupsActivity.this,
+                    WatchMovieInGroup.class);
+            sendTOWatchMoviesInGroupActivity.putExtra("group_code",group.getGroupCode());
+            startActivity(sendTOWatchMoviesInGroupActivity);
+            progressDialog.dismiss();
 
-                Intent sendTOWatchMoviesInGroupActivity=new Intent(GroupsActivity.this,
-                        WatchMovieInGroup.class);
-                sendTOWatchMoviesInGroupActivity.putExtra("group_code",group.getGroupCode());
-                startActivity(sendTOWatchMoviesInGroupActivity);
-                progressDialog.dismiss();
-
-            }
         },3000);
 
 

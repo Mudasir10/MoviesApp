@@ -25,4 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar_showAllComedyMovies" />
 
+    <ProgressBar
+        android:id="@+id/progressBarComedyMovie"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_show_all_comedyMovies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_show_all_comedyMovies"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_showAllComedyMovies" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -39,11 +41,16 @@ public class ShowAllComedyMovies extends AppCompatActivity implements MovieItemC
     List<Movies> moviesListComedy;
     DatabaseReference mDatabaseRefComedy;
     ShowAllMoviesAdapter mAdapter;
+    private ProgressBar mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_comedy_movies);
+
+        mProgress=findViewById(R.id.progressBarComedyMovie);
+
 
         mToolbar=findViewById(R.id.app_bar_showAllComedyMovies);
         setSupportActionBar(mToolbar);
@@ -69,7 +76,11 @@ public class ShowAllComedyMovies extends AppCompatActivity implements MovieItemC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
 
-        populateComedyCategoryMovies();
+        mProgress.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(() -> {
+            populateComedyCategoryMovies();
+            mProgress.setVisibility(View.INVISIBLE);
+        },1000);
 
     }
 

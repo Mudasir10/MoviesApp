@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,11 +42,15 @@ public class ShowAllAdventureMovies extends AppCompatActivity implements MovieIt
     List<Movies> moviesListAdventure;
     private DatabaseReference mDatabaseRefAdventure;
     ShowAllMoviesAdapter mAdapter;
+    private ProgressBar mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_adventure_movies);
+
+        mProgress=findViewById(R.id.progressBarAdventureMovies);
         mToolbar=findViewById(R.id.app_bar_showAllAdventureMovies);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,18 +64,18 @@ public class ShowAllAdventureMovies extends AppCompatActivity implements MovieIt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("ALL Adventure Movies");
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> finish());
 
         recyclerView=findViewById(R.id.rv_show_all_adventureMovies);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
 
-        populateAdventureCategoryMovies();
+        mProgress.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(() -> {
+            populateAdventureCategoryMovies();
+            mProgress.setVisibility(View.INVISIBLE);
+        },1000);
+
 
     }
 

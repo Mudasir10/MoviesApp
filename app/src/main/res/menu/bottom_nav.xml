@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Home"  android:icon="@drawable/ic_home" android:id="@+id/home"/>
-    <item android:title="Groups" android:icon="@drawable/ic_group" android:id="@+id/groups"/>
-    <item android:title="Join" android:icon="@drawable/ic_join" android:id="@+id/join"/>
-    <item android:title="Settings" android:icon="@drawable/ic_settings" android:id="@+id/settings"/>
-    <item android:title="Logout" android:icon="@drawable/ic_logout" android:id="@+id/logout"/>
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/groups"
+        android:icon="@drawable/ic_group"
+        android:title="Groups" />
+    <item
+        android:id="@+id/join"
+        android:icon="@drawable/ic_join"
+        android:title="Join" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout" />
 </menu>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         Group group=groupList.get(position);
 
         holder.tvGroupName.setText("Group Name : "+group.getGroupName());
+        holder.tvGroupName.setMovementMethod(new ScrollingMovementMethod());
         holder.tvGroupCode.setText("Group Code : "+group.getGroupCode());
 
 

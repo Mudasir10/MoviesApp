@@ -1,6 +1,7 @@
 package com.mudasir.moviesapp.adapters;
 
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Movies movies=moviesList.get(position);
-
-
         holder.title.setText(movies.getTitle());
+        holder.title.setMovementMethod(new ScrollingMovementMethod());
         holder.category.setText(movies.getCategory());
         Glide.with(mContext).load(movies.getThumbnail()).into(holder.moviesImage);
-
 
     }
 
@@ -63,8 +62,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
         private TextView title;
         private TextView category;
 
-
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -72,15 +69,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
             title=itemView.findViewById(R.id.movie_title);
             category=itemView.findViewById(R.id.movie_rat);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    movieItemClickListener.onMovieClick(moviesList.get(getAdapterPosition()),moviesImage);
-
-
-                }
-            });
+            itemView.setOnClickListener(v ->
+                    movieItemClickListener.onMovieClick(moviesList.get(getAdapterPosition()),moviesImage)
+            );
 
 
         }

@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,17 +38,19 @@ import java.util.List;
 public class ShowAllActionMovies extends AppCompatActivity implements MovieItemClickListener {
 
     Toolbar mToolbar;
-
     RecyclerView recyclerView;
     List<Movies> moviesListAction;
     private DatabaseReference mDatabaseRefAction;
     ShowAllMoviesAdapter mAdapter;
-
+    private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_action_movies);
+
+
+        mProgress=findViewById(R.id.progressBarActionMovies);
 
         mDatabaseRefAction= FirebaseDatabase.getInstance().getReference("Movies").child("Action");
 
@@ -66,7 +70,15 @@ public class ShowAllActionMovies extends AppCompatActivity implements MovieItemC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
 
-        populateActionCategoryMovies();
+
+        mProgress.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(() -> {
+            populateActionCategoryMovies();
+            mProgress.setVisibility(View.INVISIBLE);
+        },1000);
+
+
 
     }
 
@@ -75,7 +87,6 @@ public class ShowAllActionMovies extends AppCompatActivity implements MovieItemC
     public void onMovieClick(Movies movie, ImageView movieImageView) {
         // here we send movie information to detail activity
         // also we ll create the transition animation between the two activity
-
         Intent intent = new Intent(this, MoviesDetailsActivity.class);
         // send movie information to deatilActivity
         intent.putExtra("title",movie.getTitle());
@@ -120,9 +131,7 @@ public class ShowAllActionMovies extends AppCompatActivity implements MovieItemC
 
                 }
                 else{
-
                     Toast.makeText(ShowAllActionMovies.this, "No Movies", Toast.LENGTH_SHORT).show();
-
                 }
 
             }

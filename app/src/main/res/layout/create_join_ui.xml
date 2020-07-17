@@ -6,10 +6,12 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:layout_margin="10dp"
+        android:imeOptions="actionDone"
+        android:inputType="number"
         android:id="@+id/et_group_code"
-        android:hint="Enter Group Code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter Group Code" />
 
 </LinearLayout>

@@ -2,23 +2,24 @@ package com.mudasir.moviesapp.models;
 
 public class Slide {
 
-    private int image;
+    private String thumbnail;
     private String title;
+    private String streamingLink;
+    private String key;
 
-    public Slide() {
-    }
-
-    public Slide(int image, String title) {
-        this.image = image;
+    public Slide(String thumbnail, String title, String streamingLink, String key) {
+        this.thumbnail = thumbnail;
         this.title = title;
+        this.streamingLink = streamingLink;
+        this.key = key;
     }
 
-    public int getImage() {
-        return image;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() {
@@ -28,4 +29,24 @@ public class Slide {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getStreamingLink() {
+        return streamingLink;
+    }
+
+    public void setStreamingLink(String streamingLink) {
+        this.streamingLink = streamingLink;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public Slide() {
+    }
+
 }

@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,29 +35,26 @@ import java.util.List;
 
 public class ShowAllLoveMovies extends AppCompatActivity implements MovieItemClickListener {
 
-    Toolbar mToolbar;
-
-    RecyclerView recyclerView;
-    List<Movies> moviesListLove;
-    DatabaseReference mDatabaseRefLove;
-    ShowAllMoviesAdapter mAdapter;
+     Toolbar mToolbar;
+     RecyclerView recyclerView;
+     List<Movies> moviesListLove;
+     DatabaseReference mDatabaseRefLove;
+     ShowAllMoviesAdapter mAdapter;
+     private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_love_movies);
 
+        mProgress=findViewById(R.id.progressBarLoveMovie);
+
         mToolbar=findViewById(R.id.app_bar_showAllLoveMovies);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("ALL Love Movies");
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> finish());
 
         mDatabaseRefLove= FirebaseDatabase.getInstance().getReference("Movies").child("Love");
 
@@ -63,7 +62,12 @@ public class ShowAllLoveMovies extends AppCompatActivity implements MovieItemCli
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
 
-        populateLoveCategoryMovies();
+        mProgress.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(() -> {
+            populateLoveCategoryMovies();
+            mProgress.setVisibility(View.INVISIBLE);
+        },1000);
+
 
     }
 

@@ -22,24 +22,19 @@ public class Movies {
         this.key = key;
     }
 
-    public Movies(String title, String thumbnail, String category ) {
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.category=category;
-    }
 
     public Movies() {
     }
 
-    public Movies(String title, String description, String thumbnail, String category, String streamingLink) {
+
+    public Movies(String title, String description, String thumbnail, String category, String streamingLink, String key) {
         this.title = title;
         Description = description;
         this.thumbnail = thumbnail;
-
         this.category = category;
         this.streamingLink = streamingLink;
+        this.key = key;
     }
-
 
     public String getTitle() {
         return title;
@@ -83,17 +78,16 @@ public class Movies {
     }
 
 
-
-
     @Exclude
     public Map<String, Object> MoviestoMap() {
 
         HashMap<String, Object> result = new HashMap<>();
         result.put("title",title);
-        result.put("des",Description);
+        result.put("Description",Description);
         result.put("thumbnail",thumbnail);
         result.put("streamingLink",streamingLink);
         result.put("key",key);
+        result.put("category",category);
 
         return result;
     }

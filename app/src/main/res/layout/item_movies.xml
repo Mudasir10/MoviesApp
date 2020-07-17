@@ -26,7 +26,8 @@
 
 
     <TextView
-
+        android:scrollbars="vertical"
+        android:maxLines="2"
         android:textColor="#FFFFFF"
         android:id="@+id/movie_title"
         android:layout_width="match_parent"

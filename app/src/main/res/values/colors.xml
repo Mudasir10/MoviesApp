@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#151c25</color>
     <color name="colorAccent">#f1b814</color>
 
+    <!--<color name="colorAccent">#f1b814</color> -->
     <color name="text_light_blue">#add8e6</color>
-
     <color name="colorOrange">#fcba03</color>
 
 </resources>
